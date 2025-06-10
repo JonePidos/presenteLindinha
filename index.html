@@ -125,23 +125,41 @@
   <!-- 🔈 Botão de controle -->
   <div id="audio-control">⏸️</div>
 
-  <script>
-    const audio = document.getElementById("background-audio");
-    const btn = document.getElementById("audio-control");
-    audio.volume = 1.2; // Volume suave
+<script>
+  const audio = document.getElementById("background-audio");
+  const btn = document.getElementById("audio-control");
+  let isPlaying = false;
 
-    let isPlaying = true;
-
-    btn.addEventListener("click", () => {
-      if (isPlaying) {
-        audio.pause();
-        btn.textContent = "▶️";
-      } else {
-        audio.play();
+  // Toca após primeiro toque na tela (iOS + Android)
+  function unlockAudio() {
+    audio.play()
+      .then(() => {
+        isPlaying = true;
         btn.textContent = "⏸️";
-      }
-      isPlaying = !isPlaying;
-    });
-  </script>
+      })
+      .catch((err) => {
+        // caso o navegador bloqueie, mantemos o botão clicável
+        console.warn("Navegador bloqueou autoplay:", err);
+      });
+    document.removeEventListener('touchstart', unlockAudio);
+    document.removeEventListener('click', unlockAudio);
+  }
+
+  document.addEventListener('touchstart', unlockAudio, { once: true });
+  document.addEventListener('click', unlockAudio, { once: true });
+
+  // Controle do botão play/pause
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (isPlaying) {
+      audio.pause();
+      btn.textContent = "▶️";
+    } else {
+      audio.play().catch(err => console.log("Erro ao tocar áudio:", err));
+      btn.textContent = "⏸️";
+    }
+    isPlaying = !isPlaying;
+  });
+</script>
 </body>
 </html>
