@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nosso Amor ❤️</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #ffe0e9, #fff);
-      color: #6b1b3a;
-      padding-bottom: 100px;
-    }
+  body {
+    background: linear-gradient(to bottom right, #f3e5f5, #ce93d8);
+    font-family: 'Segoe UI', sans-serif;
+    color: #4a148c;
+    margin: 0;
+    padding: 0;
+  }
 
     header {
       text-align: center;
@@ -25,10 +25,13 @@
       font-size: 2.5rem;
     }
 
-    .timeline {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 0 20px;
+    .timeline-item {
+      background: #ffffffaa;
+      border-left: 5px solid #ab47bc;
+      margin: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
     .event {
@@ -123,7 +126,20 @@
   <audio id="background-audio" src="musica.mp3" autoplay loop></audio>
 
   <!-- 🔈 Botão de controle -->
-  <div id="audio-control">⏸️</div>
+  <button id="audio-control" style="
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.4); /* 40% transparente */
+  border: none;
+  padding: 10px 15px;
+  font-size: 20px;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  cursor: pointer;
+">▶️</button>
 
 <script>
   const audio = document.getElementById("background-audio");
