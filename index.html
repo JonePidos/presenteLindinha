@@ -1,101 +1,44 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nosso Amor ❤️</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nossa História</title>
   <style>
-body {
-  background: linear-gradient(to bottom right, #f3e5f5, #ce93d8); /* lilás suave */
-  font-family: 'Segoe UI', sans-serif;
-  color: #4a148c; /* roxo profundo para textos */
-  margin: 0;
-  padding: 0;
-}
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+      background-color: #E6E6FA; /* Fundo geral lilás */
+      color: #4B0082; /* Cor do texto roxo escuro */
+    }
 
-header {
-  text-align: center;
-  padding: 30px 10px;
-  background-color: #e1bee7; /* lilás claro */
-  color: #4a0072; /* roxo escuro para o título */
-}
+    .secao {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
 
-h1 {
-  margin: 0;
-  font-size: 2.5rem;
-}
+    .secao:nth-child(odd) {
+      background-color: #D8BFD8; /* Lilás mais claro */
+    }
 
-.timeline-item {
-  background: rgba(255, 255, 255, 0.85);
-  border-left: 5px solid #ab47bc; /* roxo médio */
-  margin: 20px;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.event {
-  margin-bottom: 40px;
-  padding: 20px;
-  background-color: #f3e5f5; /* fundo lilás */
-  border-left: 5px solid #ba68c8; /* borda lilás escuro */
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.event h2 {
-  margin-top: 0;
-  color: #6a1b9a; /* título em roxo intenso */
-}
-
-.event p {
-  margin: 10px 0;
-}
-
-.event img {
-  width: 100%;
-  border-radius: 10px;
-  margin-top: 10px;
-}
-
-footer {
-  text-align: center;
-  padding: 30px;
-  background-color: #e1bee7; /* lilás claro */
-  color: #4a0072;
-  position: relative;
-}
-
-#audio-control {
-  position: fixed;
-  bottom: 15px;
-  right: 15px;
-  background-color: #f3e5f5;
-  border: 1px solid #ba68c8;
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  cursor: pointer;
-  font-size: 20px;
-  color: #6a1b9a;
-}
-
-#audio-control:hover {
-  background-color: #e1bee7;
-}
+    .secao:nth-child(even) {
+      background-color: #DDA0DD; /* Lilás médio */
+    }
 
     .carousel {
       position: relative;
-      width: 100%;
+      width: 80%;
+      max-width: 500px;
       height: 250px;
       overflow: hidden;
       border-radius: 10px;
-      margin-top: 10px;
-      background-color: #f3e5f5;
+      background-color: #BA55D3; /* Roxo mais vibrante para o carrossel */
+      margin-bottom: 1rem;
     }
 
     .carousel-img {
@@ -113,113 +56,88 @@ footer {
     .carousel-img.active {
       opacity: 1;
     }
-    
+
+    .texto {
+      padding: 0 20px;
+      max-width: 600px;
+      color: #FFF; /* Texto branco para contrastar com o fundo roxo */
+    }
+
+    #play-fallback {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(75, 0, 130, 0.8); /* Roxo escuro quase transparente */
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Nosso Amor ❤️</h1>
-    <p>Uma pequena viagem no tempo, com amor.</p>
-  </header>
 
-  <section class="timeline">
-    <div class="event">
-      <h2>12/06/2022</h2>
+  <audio id="bg-music" src="musica.mp3" loop></audio>
+  <button id="play-fallback">▶</button>
+
+  <section class="secao" id="ano2022">
+    <h2>2022</h2>
+    <div class="carousel">
+      <img src="img1.jpg" class="carousel-img active" alt="">
+      <img src="img2.jpeg" class="carousel-img" alt="">
+      <img src="img3.jpeg" class="carousel-img" alt="">
+      <img src="img4.jpeg" class="carousel-img" alt="">
+      <img src="img5.jpeg" class="carousel-img" alt="">
+    </div>
+    <div class="texto">
       <p>Aqui começou nosso primeiro Dia dos Namorados juntinhos.</p>
-      <div class="carousel">
-        <img src="img1.jpg" class="carousel-img active">
-        <img src="img2.jpeg" class="carousel-img">
-        <img src="img3.jpeg" class="carousel-img">
-        <img src="img4.jpeg" class="carousel-img">
-        <img src="img5.jpeg" class="carousel-img">
-      </div>
-    </div>
-    <div class="event">
-      <h2>2023</h2>
-      <p>Um ano de momentos doces, risadas e aprendizados.</p>
-      <img src="https://source.unsplash.com/featured/?love,couple" alt="Casal 2023" />
-    </div>
-    <div class="event">
-      <h2>2024</h2>
-      <p>Superamos desafios e nosso laço ficou ainda mais forte.</p>
-      <img src="https://source.unsplash.com/featured/?hug,couple" alt="Casal 2024" />
-    </div>
-    <div class="event">
-      <h2>2025</h2>
-      <p>Hoje celebramos mais um capítulo dessa linda história. Eu amo você ❤️</p>
-      <img src="https://source.unsplash.com/featured/?together,couple" alt="Casal 2025" />
     </div>
   </section>
 
-  <footer>
-    <p>Com todo meu amor, hoje e sempre. 💖</p>
-  </footer>
+  <section class="secao" id="ano2023">
+    <h2>2023</h2>
+    <div class="carousel">
+      <img src="img6.jpg" class="carousel-img active" alt="">
+      <img src="img7.jpeg" class="carousel-img" alt="">
+      <img src="img8.jpeg" class="carousel-img" alt="">
+      <img src="img9.jpeg" class="carousel-img" alt="">
+      <img src="img10.jpeg" class="carousel-img" alt="">
+    </div>
+    <div class="texto">
+      <p>Nosso amor se fortaleceu ainda mais neste ano.</p>
+    </div>
+  </section>
 
-  <!-- 🎵 Música -->
-  <audio id="background-audio" src="musica.mp3" autoplay loop></audio>
+  <script>
+    document.querySelectorAll('.carousel').forEach(carousel => {
+      const imgs = carousel.querySelectorAll('.carousel-img');
+      let idx = 0;
+      setInterval(() => {
+        imgs[idx].classList.remove('active');
+        idx = (idx + 1) % imgs.length;
+        imgs[idx].classList.add('active');
+      }, 3000);
+    });
 
-  <!-- 🔈 Botão de controle -->
-  <button id="audio-control" style="
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-  background: rgba(255, 255, 255, 0.4); /* 40% transparente */
-  border: none;
-  padding: 10px 15px;
-  font-size: 20px;
-  border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  cursor: pointer;
-">▶️</button>
+    window.addEventListener('load', () => {
+      const audio = document.getElementById('bg-music');
+      const btn = document.getElementById('play-fallback');
 
-<script>
-  const audio = document.getElementById("background-audio");
-  const btn = document.getElementById("audio-control");
-  let isPlaying = false;
-
-  // Toca após primeiro toque na tela (iOS + Android)
-  function unlockAudio() {
-    audio.play()
-      .then(() => {
-        isPlaying = true;
-        btn.textContent = "⏸️";
-      })
-      .catch((err) => {
-        // caso o navegador bloqueie, mantemos o botão clicável
-        console.warn("Navegador bloqueou autoplay:", err);
+      audio.play().catch(() => {
+        btn.style.display = 'flex';
       });
-    document.removeEventListener('touchstart', unlockAudio);
-    document.removeEventListener('click', unlockAudio);
-  }
 
-  document.addEventListener('touchstart', unlockAudio, { once: true });
-  document.addEventListener('click', unlockAudio, { once: true });
-
-  // Controle do botão play/pause
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    if (isPlaying) {
-      audio.pause();
-      btn.textContent = "▶️";
-    } else {
-      audio.play().catch(err => console.log("Erro ao tocar áudio:", err));
-      btn.textContent = "⏸️";
-    }
-    isPlaying = !isPlaying;
-  });
-
-    // Carrossel automático de imagens
-  const carouselImages = document.querySelectorAll(".carousel-img");
-  let currentIndex = 0;
-
-  setInterval(() => {
-    carouselImages[currentIndex].classList.remove("active");
-    currentIndex = (currentIndex + 1) % carouselImages.length;
-    carouselImages[currentIndex].classList.add("active");
-  }, 3000); // troca a cada 3 segundos
-  
-</script>
+      btn.addEventListener('click', () => {
+        audio.play();
+        btn.style.display = 'none';
+      });
+    });
+  </script>
 </body>
 </html>
