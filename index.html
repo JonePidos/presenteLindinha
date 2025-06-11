@@ -9,8 +9,8 @@
       font-family: sans-serif;
       margin: 0;
       overflow-x: hidden;
-      background-color: #E6E6FA; /* Fundo geral lilás */
-      color: #4B0082; /* Cor do texto roxo escuro */
+      background-color: #E6E6FA;
+      color: #4B0082;
     }
 
     .secao {
@@ -23,11 +23,11 @@
     }
 
     .secao:nth-child(odd) {
-      background-color: #D8BFD8; /* Lilás mais claro */
+      background-color: #D8BFD8;
     }
 
     .secao:nth-child(even) {
-      background-color: #DDA0DD; /* Lilás médio */
+      background-color: #DDA0DD;
     }
 
     .carousel {
@@ -37,7 +37,7 @@
       height: 250px;
       overflow: hidden;
       border-radius: 10px;
-      background-color: #BA55D3; /* Roxo mais vibrante para o carrossel */
+      background-color: #BA55D3;
       margin-bottom: 1rem;
     }
 
@@ -45,12 +45,13 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      max-width: 100%;
-      max-height: 100%;
+      width: 100%;
+      height: 100%;
       transform: translate(-50%, -50%);
       opacity: 0;
       transition: opacity 1.2s ease-in-out;
-      object-fit: contain;
+      object-fit: cover;
+      object-position: center;
     }
 
     .carousel-img.active {
@@ -60,14 +61,15 @@
     .texto {
       padding: 0 20px;
       max-width: 600px;
-      color: #FFF; /* Texto branco para contrastar com o fundo roxo */
+      color: #FFF;
     }
 
     #play-fallback {
       position: fixed;
+      left: 50%; /* Centraliza horizontalmente */
       bottom: 20px;
-      right: 20px;
-      background: rgba(75, 0, 130, 0.8); /* Roxo escuro quase transparente */
+      transform: translateX(-50%); /* Ajuste para centralizar corretamente */
+      background: rgba(75, 0, 130, 0.3); /* Roxo escuro com 30% de opacidade */
       color: #fff;
       border: none;
       border-radius: 50%;
@@ -82,6 +84,7 @@
   </style>
 </head>
 <body>
+  
   <header>
     <h1>Nosso Amor ❤️</h1>
     <p>Uma pequena viagem no tempo, com amor.</p>
