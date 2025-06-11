@@ -11,8 +11,23 @@
       overflow-x: hidden;
       background-color: #E6E6FA;
       color: #4B0082;
+      height: 100vh; /* Garante que o body preencha a tela */
+      overflow-y: scroll; /* Adiciona rolagem vertical */
+      scroll-snap-type: y mandatory; /* Garante que a rolagem pare em cada seção */
     }
 
+    /* Estilos para o cabeçalho inicial */
+    header {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      scroll-snap-align: start; /* Faz o cabeçalho parar no topo */
+    }
+
+    /* Estilos para as seções */
     .secao {
       height: 100vh;
       display: flex;
@@ -20,6 +35,15 @@
       align-items: center;
       justify-content: center;
       text-align: center;
+      scroll-snap-align: start; /* Faz cada seção parar no topo */
+      opacity: 0; /* Começa invisível */
+      transition: opacity 1s ease-in-out, transform 1s ease-in-out; /* Transição suave */
+      transform: translateY(50px); /* Começa um pouco abaixo */
+    }
+
+    .secao.active {
+      opacity: 1; /* Torna visível */
+      transform: translateY(0); /* Move para a posição final */
     }
 
     .secao:nth-child(odd) {
@@ -45,12 +69,14 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 100%;
-      height: 100%;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
       transform: translate(-50%, -50%);
       opacity: 0;
       transition: opacity 1.2s ease-in-out;
-      object-fit: cover;
+      object-fit: contain;
       object-position: center;
     }
 
@@ -66,10 +92,10 @@
 
     #play-fallback {
       position: fixed;
-      left: 50%; /* Centraliza horizontalmente */
+      left: 50%;
       bottom: 20px;
-      transform: translateX(-50%); /* Ajuste para centralizar corretamente */
-      background: rgba(75, 0, 130, 0.3); /* Roxo escuro com 30% de opacidade */
+      transform: translateX(-50%);
+      background: rgba(75, 0, 130, 0.3);
       color: #fff;
       border: none;
       border-radius: 50%;
@@ -84,13 +110,15 @@
   </style>
 </head>
 <body>
-  
-  <header>
-    <h1>Nosso Amor ❤️</h1>
-    <p>Uma pequena viagem no tempo, com amor.</p>
-  </header>
+
   <audio id="bg-music" src="musica.mp3" loop></audio>
   <button id="play-fallback">▶</button>
+
+  <!-- Cabeçalho inicial -->
+  <header>
+    <h1>Nosso Amor ❤️</h1>
+    <p>Uma pequena viagem no tempo</p>
+  </header>
 
   <section class="secao" id="ano2022">
     <h2>2022</h2>
@@ -121,6 +149,7 @@
   </section>
 
   <script>
+    // Carrossel automático
     document.querySelectorAll('.carousel').forEach(carousel => {
       const imgs = carousel.querySelectorAll('.carousel-img');
       let idx = 0;
@@ -131,6 +160,7 @@
       }, 3000);
     });
 
+    // Música de fundo e fallback de play
     window.addEventListener('load', () => {
       const audio = document.getElementById('bg-music');
       const btn = document.getElementById('play-fallback');
@@ -144,6 +174,25 @@
         btn.style.display = 'none';
       });
     });
+
+    // Transições de rolagem
+    const sections = document.querySelectorAll('.secao');
+
+    function handleScroll() {
+      sections.forEach(section => {
+        const top = section.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+
+        if (top < windowHeight * 0.75) {
+          section.classList.add('active');
+        } else {
+          section.classList.remove('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Para ativar a primeira seção ao carregar
   </script>
 </body>
 </html>
