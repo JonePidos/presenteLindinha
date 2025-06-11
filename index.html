@@ -126,7 +126,20 @@ footer {
   <audio id="background-audio" src="musica.mp3" autoplay loop></audio>
 
   <!-- 🔈 Botão de controle -->
-  <button id="audio-control">▶️</button>
+  <button id="audio-control" style="
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.4); /* 40% transparente */
+  border: none;
+  padding: 10px 15px;
+  font-size: 20px;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  cursor: pointer;
+">▶️</button>
 
 <script>
   const audio = document.getElementById("background-audio");
