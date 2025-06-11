@@ -5,88 +5,88 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nosso Amor ❤️</title>
   <style>
-  body {
-    background: linear-gradient(to bottom right, #f3e5f5, #ce93d8);
-    font-family: 'Segoe UI', sans-serif;
-    color: #4a148c;
-    margin: 0;
-    padding: 0;
-  }
+body {
+  background: linear-gradient(to bottom right, #f3e5f5, #ce93d8); /* lilás suave */
+  font-family: 'Segoe UI', sans-serif;
+  color: #4a148c; /* roxo profundo para textos */
+  margin: 0;
+  padding: 0;
+}
 
-    header {
-      text-align: center;
-      padding: 30px 10px;
-      background-color: #ffccd5;
-      color: #6b1b3a;
-    }
+header {
+  text-align: center;
+  padding: 30px 10px;
+  background-color: #e1bee7; /* lilás claro */
+  color: #4a0072; /* roxo escuro para o título */
+}
 
-    h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
+h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
 
-    .timeline-item {
-      background: #ffffffaa;
-      border-left: 5px solid #ab47bc;
-      margin: 20px;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
+.timeline-item {
+  background: rgba(255, 255, 255, 0.85);
+  border-left: 5px solid #ab47bc; /* roxo médio */
+  margin: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
 
-    .event {
-      margin-bottom: 40px;
-      padding: 20px;
-      background-color: #fff0f5;
-      border-left: 5px solid #ff80ab;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
+.event {
+  margin-bottom: 40px;
+  padding: 20px;
+  background-color: #f3e5f5; /* fundo lilás */
+  border-left: 5px solid #ba68c8; /* borda lilás escuro */
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-    .event h2 {
-      margin-top: 0;
-      color: #c2185b;
-    }
+.event h2 {
+  margin-top: 0;
+  color: #6a1b9a; /* título em roxo intenso */
+}
 
-    .event p {
-      margin: 10px 0;
-    }
+.event p {
+  margin: 10px 0;
+}
 
-    .event img {
-      width: 100%;
-      border-radius: 10px;
-      margin-top: 10px;
-    }
+.event img {
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+}
 
-    footer {
-      text-align: center;
-      padding: 30px;
-      background-color: #ffe0e9;
-      color: #6b1b3a;
-      position: relative;
-    }
+footer {
+  text-align: center;
+  padding: 30px;
+  background-color: #e1bee7; /* lilás claro */
+  color: #4a0072;
+  position: relative;
+}
 
-    #audio-control {
-      position: fixed;
-      bottom: 15px;
-      right: 15px;
-      background-color: #fff0f5;
-      border: 1px solid #ff80ab;
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      cursor: pointer;
-      font-size: 20px;
-      color: #c2185b;
-    }
+#audio-control {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  background-color: #f3e5f5;
+  border: 1px solid #ba68c8;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+  font-size: 20px;
+  color: #6a1b9a;
+}
 
-    #audio-control:hover {
-      background-color: #ffd6e0;
-    }
+#audio-control:hover {
+  background-color: #e1bee7;
+}
   </style>
 </head>
 <body>
@@ -126,20 +126,7 @@
   <audio id="background-audio" src="musica.mp3" autoplay loop></audio>
 
   <!-- 🔈 Botão de controle -->
-  <button id="audio-control" style="
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-  background: rgba(255, 255, 255, 0.4); /* 40% transparente */
-  border: none;
-  padding: 10px 15px;
-  font-size: 20px;
-  border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  cursor: pointer;
-">▶️</button>
+  <button id="audio-control" style=">▶️</button>
 
 <script>
   const audio = document.getElementById("background-audio");
