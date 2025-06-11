@@ -11,7 +11,6 @@
       overflow-x: hidden;
       background-color: #E6E6FA;
       color: #4B0082;
-      height: 100vh;
       overflow-y: scroll;
       scroll-snap-type: y mandatory;
     }
@@ -27,17 +26,18 @@
     }
 
     .secao {
-      height: 100vh;
+      min-height: 100vh; /* Use min-height em vez de height */
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: flex-start; /* Alinha o conteúdo ao topo */
       text-align: center;
       scroll-snap-align: start;
       opacity: 0;
       transition: opacity 1s ease-in-out, transform 1s ease-in-out;
       transform: translateY(50px);
-      padding: 20px; /* Adiciona um preenchimento para evitar que o conteúdo toque as bordas */
-      box-sizing: border-box; /* Garante que o preenchimento não aumente o tamanho da seção */
+      padding: 20px;
+      box-sizing: border-box;
     }
 
     .secao.active {
@@ -54,24 +54,25 @@
     }
 
     .secao h2 {
-      margin-bottom: 10px; /* Espaço entre o título e o carrossel */
+      margin-bottom: 10px;
     }
 
     .carrossel-container {
       position: relative;
       width: 80%;
       max-width: 400px;
-      height: 240px;
-      margin-bottom: 10px; /* Espaço entre o carrossel e o texto */
+      height: 0; /* Remove a altura fixa */
+      padding-bottom: 56.25%; /* Proporção 16:9 (ajuste conforme necessário) */
+      margin-bottom: 10px;
     }
 
     .carrossel-img {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: 0;
+      left: 0;
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: cover; /* Garante que a imagem cubra o espaço */
       opacity: 0;
       transition: opacity 1s ease-in-out;
       border-radius: 10px;
@@ -135,42 +136,45 @@
   <section class="secao" id="ano2023">
     <h2>2023</h2>
     <div class="carrossel-container">
-      <img src="img6.jpg" class="carrossel-img" alt="">
-      <img src="img7.jpeg" class="carrossel-img" alt="">
-      <img src="img8.jpeg" class="carrossel-img" alt="">
-      <img src="img9.jpeg" class="carrossel-img" alt="">
-      <img src="img10.jpeg" class="carrossel-img" alt="">
+      <img src="img1.jpg" class="carrossel-img" alt="">
+      <img src="img2.jpeg" class="carrossel-img" alt="">
+      <img src="img3.jpeg" class="carrossel-img" alt="">
+      <img src="img4.jpeg" class="carrossel-img" alt="">
+      <img src="img5.jpeg" class="carrossel-img" alt="">
     </div>
     <div class="texto">
       <p>Nosso amor se fortaleceu ainda mais neste ano.</p>
     </div>
   </section>
+
     <section class="secao" id="ano2024">
     <h2>2024</h2>
     <div class="carrossel-container">
-      <img src="img6.jpg" class="carrossel-img" alt="">
-      <img src="img7.jpeg" class="carrossel-img" alt="">
-      <img src="img8.jpeg" class="carrossel-img" alt="">
-      <img src="img9.jpeg" class="carrossel-img" alt="">
-      <img src="img10.jpeg" class="carrossel-img" alt="">
+      <img src="img1.jpg" class="carrossel-img" alt="">
+      <img src="img2.jpeg" class="carrossel-img" alt="">
+      <img src="img3.jpeg" class="carrossel-img" alt="">
+      <img src="img4.jpeg" class="carrossel-img" alt="">
+      <img src="img5.jpeg" class="carrossel-img" alt="">
     </div>
     <div class="texto">
       <p>Nosso amor se fortaleceu ainda mais neste ano.</p>
     </div>
   </section>
+
     <section class="secao" id="ano2025">
     <h2>2025</h2>
     <div class="carrossel-container">
-      <img src="img6.jpg" class="carrossel-img" alt="">
-      <img src="img7.jpeg" class="carrossel-img" alt="">
-      <img src="img8.jpeg" class="carrossel-img" alt="">
-      <img src="img9.jpeg" class="carrossel-img" alt="">
-      <img src="img10.jpeg" class="carrossel-img" alt="">
+      <img src="img1.jpg" class="carrossel-img" alt="">
+      <img src="img2.jpeg" class="carrossel-img" alt="">
+      <img src="img3.jpeg" class="carrossel-img" alt="">
+      <img src="img4.jpeg" class="carrossel-img" alt="">
+      <img src="img5.jpeg" class="carrossel-img" alt="">
     </div>
     <div class="texto">
       <p>Nosso amor se fortaleceu ainda mais neste ano.</p>
     </div>
   </section>
+
   <script>
     // Carrossel automático
     document.querySelectorAll('.carrossel-container').forEach(container => {
