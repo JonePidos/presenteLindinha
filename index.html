@@ -232,92 +232,106 @@
       </p>    
     </div>
   </section>
-  <script>
-    // 1) Gera os corações no header
-    function initHearts() {
-      const container = document.getElementById('heart-container');
-      const numHearts = 25;
-      for (let i = 0; i < numHearts; i++) {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.textContent = '❤️';
-        heart.style.left = Math.random() * 100 + '%';
-        heart.style.animationDuration = 4 + Math.random() * 3 + 's';
-        heart.style.animationDelay = Math.random() * 5 + 's';
-        container.appendChild(heart);
+<script>
+  // 1) Gera os corações no header
+  function initHearts() {
+    const container = document.getElementById('heart-container');
+    for (let i = 0; i < 25; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.textContent = '❤️';
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.animationDuration = 4 + Math.random() * 3 + 's';
+      heart.style.animationDelay = Math.random() * 5 + 's';
+      container.appendChild(heart);
+    }
+  }
+  initHearts();
+
+  // 2) Música de fundo + fallback de play
+  const bgMusic      = document.getElementById('bg-music');
+  const playFallback = document.getElementById('play-fallback');
+  window.addEventListener('load', () => {
+    bgMusic.play().catch(() => playFallback.style.display = 'flex');
+  });
+  playFallback.addEventListener('click', () => {
+    bgMusic.play();
+    playFallback.style.display = 'none';
+  });
+
+  // 3) Scroll: animações de seção, esconde corações e detecta última seção
+  const headerElt      = document.querySelector('header');
+  const heartContainer = document.getElementById('heart-container');
+  const sections       = document.querySelectorAll('.secao');
+  const lastSection    = document.getElementById('ano2025');
+  let isLastSectionVisible = false;
+
+  function updateVisibilityFlags() {
+    // esconde/mostra corações
+    const hr = headerElt.getBoundingClientRect();
+    heartContainer.style.opacity = hr.bottom < 50 ? '0' : '1';
+
+    // anima cada seção
+    sections.forEach(sec => {
+      const top = sec.getBoundingClientRect().top;
+      sec.classList.toggle('active', top < window.innerHeight * 0.75);
+    });
+
+    // detecta se última seção está (parcialmente) visível
+    const lr = lastSection.getBoundingClientRect();
+    isLastSectionVisible = lr.top < window.innerHeight * 0.75 && lr.bottom > 0;
+  }
+
+  window.addEventListener('scroll',  updateVisibilityFlags);
+  window.addEventListener('load',    updateVisibilityFlags);
+
+  // 4) Carrossel: imagens + vídeo (pulando o vídeo até a última seção)
+  document.querySelectorAll('.carrossel-container').forEach(container => {
+    const items = Array.from(container.querySelectorAll('.carrossel-img, .carrossel-video'));
+    let idx = 0, timer;
+
+    function showSlide(i) {
+      clearTimeout(timer);
+      items.forEach((it, j) => it.classList.toggle('active', j === i));
+      const current = items[i];
+
+      // Se for vídeo e ainda não estivermos na última seção, pule para o próximo
+      if (current.tagName.toLowerCase() === 'video' && !isLastSectionVisible) {
+        idx = (i + 1) % items.length;
+        return showSlide(idx);
       }
-    }
-    initHearts();
 
-    // 2) Música de fundo + fallback de play
-    const bgMusic      = document.getElementById('bg-music');
-    const playFallback = document.getElementById('play-fallback');
-    window.addEventListener('load', () => {
-      bgMusic.play().catch(() => playFallback.style.display = 'flex');
-    });
-    playFallback.addEventListener('click', () => {
-      bgMusic.play();
-      playFallback.style.display = 'none';
-    });
+      if (current.tagName.toLowerCase() === 'video') {
+        // Vídeo: pausa bgMusic, desmuta e play
+        bgMusic.pause();
+        current.muted = false;
+        current.currentTime = 0;
+        current.play().catch(() => { /* exigência de interação */ });
 
-    // 3) Scroll: animação de seções e oculta corações
-    const headerElt      = document.querySelector('header');
-    const heartContainer = document.getElementById('heart-container');
-    const sections       = document.querySelectorAll('.secao');
+        // Quando terminar, retoma bgMusic, silencia vídeo e avança
+        current.onended = () => {
+          current.onended = null;
+          current.muted = true;
+          bgMusic.play().catch(() => {});
+          idx = (i + 1) % items.length;
+          showSlide(idx);
+        };
 
-    function handleScroll() {
-      const headerRect = headerElt.getBoundingClientRect();
-      heartContainer.style.opacity = headerRect.bottom < 50 ? '0' : '1';
-
-      sections.forEach(sec => {
-        const top = sec.getBoundingClientRect().top;
-        sec.classList.toggle('active', top < window.innerHeight * 0.75);
-      });
-    }
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('load', handleScroll);
-
-    // 4) Carrossel: imagens e vídeo como slides
-    document.querySelectorAll('.carrossel-container').forEach(container => {
-      const items = Array.from(container.querySelectorAll('.carrossel-img, .carrossel-video'));
-      let idx = 0;
-
-      function showSlide(i) {
-        items.forEach((it, j) => it.classList.toggle('active', j === i));
-        const current = items[i];
-
-        if (current.tagName.toLowerCase() === 'video') {
-          // Vídeo: pausa bgMusic, desmute e play
-          bgMusic.pause();
-          current.muted = false;
-          current.currentTime = 0;
-          current.play().catch(() => { /* Autoplay pode exigir interação */ });
-
-          // Quando acabar, silencia o vídeo e retoma a música
-          current.onended = () => {
-            current.onended = null;
-            current.muted = true;
-            bgMusic.play().catch(() => {});
+      } else {
+        // Imagem: espera 3s e avança
+        timer = setTimeout(() => {
+          if (idx === i) {
             idx = (i + 1) % items.length;
             showSlide(idx);
-          };
-
-        } else {
-          // Imagem: mantém 3s e avança
-          setTimeout(() => {
-            if (idx === i) {
-              idx = (i + 1) % items.length;
-              showSlide(idx);
-            }
-          }, 3000);
-        }
-
-        idx = i;
+          }
+        }, 3000);
       }
 
-      showSlide(0);
-    });
-  </script>
-  
+      idx = i;
+    }
+
+    showSlide(0);
+  });
+</script>
 </body>
 </html>
