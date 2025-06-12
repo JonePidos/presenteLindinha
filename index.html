@@ -238,68 +238,88 @@
       </p>    
     </div>
   </section>
-
-  <script>
-    // 1) Gera os corações no header
-    function initHearts() {
-      const container = document.getElementById('heart-container');
-      const numHearts = 25;
-      for (let i = 0; i < numHearts; i++) {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.textContent = '❤️';
-        // posiciona aleatoriamente no eixo X
-        heart.style.left = Math.random() * 100 + '%';
-        // tempo de queda e delay variam para não caírem todos juntos
-        heart.style.animationDuration = 4 + Math.random() * 3 + 's';
-        heart.style.animationDelay = Math.random() * 5 + 's';
-        container.appendChild(heart);
-      }
+<script>
+  // 1) Gera os corações no header
+  function initHearts() {
+    const container = document.getElementById('heart-container');
+    const numHearts = 25;
+    for (let i = 0; i < numHearts; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.textContent = '❤️';
+      // posiciona aleatoriamente no eixo X
+      heart.style.left = Math.random() * 100 + '%';
+      // tempo de queda e delay variam para não caírem todos juntos
+      heart.style.animationDuration = 4 + Math.random() * 3 + 's';
+      heart.style.animationDelay = Math.random() * 5 + 's';
+      container.appendChild(heart);
     }
-    initHearts();
+  }
+  initHearts();
 
-    // 2) Lógica para sumir com os corações quando rolar para baixo
-    window.addEventListener('scroll', () => {
-      const header = document.querySelector('header');
-      const container = document.getElementById('heart-container');
-      const rect = header.getBoundingClientRect();
-      // se o header estiver 50px acima da viewport, reduz opacidade
-      if (rect.bottom < 50) {
-        container.style.opacity = '0';
-      } else {
-        container.style.opacity = '1';
-      }
+  // 2) Carrossel (imagens + vídeo)
+  document.querySelectorAll('.carrossel-container').forEach(container => {
+    const items = container.querySelectorAll('.carrossel-img, .carrossel-video');
+    let idx = 0;
+    items[idx].classList.add('active');
+    setInterval(() => {
+      items[idx].classList.remove('active');
+      idx = (idx + 1) % items.length;
+      items[idx].classList.add('active');
+    }, 3000);
+  });
+
+  // 3) Música de fundo + fallback de play
+  const bgMusic      = document.getElementById('bg-music');
+  const playFallback = document.getElementById('play-fallback');
+  window.addEventListener('load', () => {
+    bgMusic.play().catch(() => playFallback.style.display = 'flex');
+  });
+  playFallback.addEventListener('click', () => {
+    bgMusic.play();
+    playFallback.style.display = 'none';
+  });
+
+  // 4) Scroll: ativa seções, esconde corações e controla vídeo/áudio na última seção
+  const sections       = document.querySelectorAll('.secao');
+  const headerElt      = document.querySelector('header');
+  const heartContainer = document.getElementById('heart-container');
+  const video2025      = document.querySelector('#ano2025 .carrossel-video');
+  let videoTriggered   = false;
+
+  function handleScroll() {
+    // 4.1 esconde os corações quando o header sair de vista
+    const headerRect = headerElt.getBoundingClientRect();
+    heartContainer.style.opacity = headerRect.bottom < 50 ? '0' : '1';
+
+    // 4.2 animação de entrada das seções
+    sections.forEach(sec => {
+      const top = sec.getBoundingClientRect().top;
+      if (top < window.innerHeight * 0.75) sec.classList.add('active');
+      else sec.classList.remove('active');
     });
 
-    // … restante do seu JS: carrossel, áudio e transições de seção …
-    document.querySelectorAll('.carrossel-container').forEach(container => {
-      const imgs = container.querySelectorAll('.carrossel-img');
-      let idx = 0;
-      imgs[idx].classList.add('active');
-      setInterval(() => {
-        imgs[idx].classList.remove('active');
-        idx = (idx + 1) % imgs.length;
-        imgs[idx].classList.add('active');
-      }, 3000);
-    });
-    window.addEventListener('load', () => {
-      const audio = document.getElementById('bg-music');
-      const btn   = document.getElementById('play-fallback');
-      audio.play().catch(() => btn.style.display = 'flex');
-      btn.addEventListener('click', () => { audio.play(); btn.style.display = 'none'; });
-    });
-    const sections = document.querySelectorAll('.secao');
-    function handleScroll() {
-      sections.forEach(sec => {
-        const top = sec.getBoundingClientRect().top;
-        if (top < window.innerHeight * 0.75) sec.classList.add('active');
-        else sec.classList.remove('active');
-      });
+    // 4.3 lógica para pausar música e liberar áudio do vídeo na última seção
+    const lastSec = document.getElementById('ano2025');
+    if (!videoTriggered && lastSec.getBoundingClientRect().top < window.innerHeight * 0.75) {
+      videoTriggered = true;
+      // pausa a música de fundo
+      bgMusic.pause();
+      // libera áudio do vídeo e garante que ele toque
+      video2025.muted = false;
+      video2025.play();
+
+      // após 5 segundos, silencia o vídeo e retoma a música
+      setTimeout(() => {
+        video2025.muted = true;
+        bgMusic.play();
+      }, 5000);
     }
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
+  }
+
+  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('load', handleScroll);
+</script>
   
-  
-  </script>
 </body>
 </html>
