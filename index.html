@@ -232,92 +232,92 @@
       </p>    
     </div>
   </section>
-<script>
-// 1) Gera os corações no header
-  function initHearts() {
-    const container = document.getElementById('heart-container');
-    const numHearts = 25;
-    for (let i = 0; i < numHearts; i++) {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.textContent = '❤️';
-      heart.style.left = Math.random() * 100 + '%';
-      heart.style.animationDuration = 4 + Math.random() * 3 + 's';
-      heart.style.animationDelay = Math.random() * 5 + 's';
-      container.appendChild(heart);
+  <script>
+    // 1) Gera os corações no header
+    function initHearts() {
+      const container = document.getElementById('heart-container');
+      const numHearts = 25;
+      for (let i = 0; i < numHearts; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.textContent = '❤️';
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDuration = 4 + Math.random() * 3 + 's';
+        heart.style.animationDelay = Math.random() * 5 + 's';
+        container.appendChild(heart);
+      }
     }
-  }
-  initHearts();
+    initHearts();
 
-  // 2) Música de fundo + fallback de play
-  const bgMusic      = document.getElementById('bg-music');
-  const playFallback = document.getElementById('play-fallback');
-  window.addEventListener('load', () => {
-    bgMusic.play().catch(() => playFallback.style.display = 'flex');
-  });
-  playFallback.addEventListener('click', () => {
-    bgMusic.play();
-    playFallback.style.display = 'none';
-  });
-
-  // 3) Scroll: animação de seções e oculta corações
-  const headerElt      = document.querySelector('header');
-  const heartContainer = document.getElementById('heart-container');
-  const sections       = document.querySelectorAll('.secao');
-  function handleScroll() {
-    const hr = headerElt.getBoundingClientRect();
-    heartContainer.style.opacity = hr.bottom < 50 ? '0' : '1';
-    sections.forEach(sec => {
-      const top = sec.getBoundingClientRect().top;
-      sec.classList.toggle('active', top < window.innerHeight * 0.75);
+    // 2) Música de fundo + fallback de play
+    const bgMusic      = document.getElementById('bg-music');
+    const playFallback = document.getElementById('play-fallback');
+    window.addEventListener('load', () => {
+      bgMusic.play().catch(() => playFallback.style.display = 'flex');
     });
-  }
-  window.addEventListener('scroll', handleScroll);
-  window.addEventListener('load', handleScroll);
+    playFallback.addEventListener('click', () => {
+      bgMusic.play();
+      playFallback.style.display = 'none';
+    });
 
-  // 4) Carrossel: imagens e vídeo como slides
-  document.querySelectorAll('.carrossel-container').forEach(container => {
-    const items = Array.from(
-      container.querySelectorAll('.carrossel-img, .carrossel-video')
-    );
-    let idx = 0;
+    // 3) Scroll: animação de seções e oculta corações
+    const headerElt      = document.querySelector('header');
+    const heartContainer = document.getElementById('heart-container');
+    const sections       = document.querySelectorAll('.secao');
 
-    function showSlide(i) {
-      items.forEach((it, j) => it.classList.toggle('active', j === i));
-      const current = items[i];
+    function handleScroll() {
+      const headerRect = headerElt.getBoundingClientRect();
+      heartContainer.style.opacity = headerRect.bottom < 50 ? '0' : '1';
 
-      if (current.tagName.toLowerCase() === 'video') {
-        // 4.1 Vídeo: pausa bgMusic, desmute e play
-        bgMusic.pause();
-        current.muted = false;
-        current.currentTime = 0;
-        current.play().catch(() => { /* Autoplay pode exigir interação */ });
+      sections.forEach(sec => {
+        const top = sec.getBoundingClientRect().top;
+        sec.classList.toggle('active', top < window.innerHeight * 0.75);
+      });
+    }
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('load', handleScroll);
 
-        // 4.2 Quando acabar, retoma bgMusic, silencia vídeo e avança
-        current.onended = () => {
-          current.onended = null;
-          current.muted = true;
-          bgMusic.play().catch(() => {});
-          idx = (i + 1) % items.length;
-          showSlide(idx);
-        };
+    // 4) Carrossel: imagens e vídeo como slides
+    document.querySelectorAll('.carrossel-container').forEach(container => {
+      const items = Array.from(container.querySelectorAll('.carrossel-img, .carrossel-video'));
+      let idx = 0;
 
-      } else {
-        // 4.3 Imagem: mantém 3s e avança
-        setTimeout(() => {
-          if (idx === i) {
+      function showSlide(i) {
+        items.forEach((it, j) => it.classList.toggle('active', j === i));
+        const current = items[i];
+
+        if (current.tagName.toLowerCase() === 'video') {
+          // Vídeo: pausa bgMusic, desmute e play
+          bgMusic.pause();
+          current.muted = false;
+          current.currentTime = 0;
+          current.play().catch(() => { /* Autoplay pode exigir interação */ });
+
+          // Quando acabar, silencia o vídeo e retoma a música
+          current.onended = () => {
+            current.onended = null;
+            current.muted = true;
+            bgMusic.play().catch(() => {});
             idx = (i + 1) % items.length;
             showSlide(idx);
-          }
-        }, 3000);
+          };
+
+        } else {
+          // Imagem: mantém 3s e avança
+          setTimeout(() => {
+            if (idx === i) {
+              idx = (i + 1) % items.length;
+              showSlide(idx);
+            }
+          }, 3000);
+        }
+
+        idx = i;
       }
 
-      idx = i;
-    }
-
-    showSlide(0);
-  });
-</script>
+      showSlide(0);
+    });
+  </script>
   
 </body>
 </html>
