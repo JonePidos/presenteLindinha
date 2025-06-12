@@ -93,7 +93,7 @@
       z-index: 1; /* acima dos corações */
     }
 
-    .carrossel-img {
+    .carrossel-img, carrossel-video{
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
@@ -104,7 +104,7 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
 
-    .carrossel-img.active {
+    .carrossel-img.active, .carrossel-video.active{
       opacity: 1;
       z-index: 2;
     }
@@ -114,6 +114,13 @@
       max-width: 600px;
       color: #FFF;
       z-index: 1;
+    }
+        /* Estilo para o "Eu te AMO" */
+    .texto .eu-te-amo {
+      font-size: 1.5em; /* Aumenta o tamanho da fonte */
+      font-weight: bold; /* Adiciona negrito */
+      color: #FF69B4; /* Muda a cor para rosa */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Adiciona uma sombra */
     }
 
     #play-fallback {
@@ -200,9 +207,10 @@
       <img src="img26.jpeg" class="carrossel-img" alt="">
       <img src="img27.jpeg" class="carrossel-img" alt="">
       <img src="img28.jpeg" class="carrossel-img" alt="">
+      <img src="img29.jpeg" class="carrossel-img" alt="">
     </div>
     <div class="texto">
-      <p>Esse ano foi mais caótico né? Aqui o hitmo ficou um pouco mais lento, nos mudamos e começou a correria, compra móvel, instala móvel, arruma vazamento, 
+      <p>Esse ano foi mais caótico né? Aqui o ritmo ficou um pouco mais lento, nos mudamos e começou a correria, compra móvel, instala móvel, arruma vazamento, 
         instala ventilador kkkk. A família aumentou com Lulucy doidinha e teve até gatinha passando mal. Teve o lançamento da música da anjinha lindinha,
         teve até competição de coreografias de artes sênicas ao amanhecer e que vc foi campeã disparada, teve viagem com mta jabuticaba e lindnha beba na banheira.        
         Ainda nesse ano lindinha ficou doida, eu fiquei doido e mesmo assim sobrevivemos, evoluimos um com outro e meu amor cresceu ainda mais por você.  </p>
@@ -212,14 +220,22 @@
     <section class="secao" id="ano2025">
     <h2>2025</h2>
     <div class="carrossel-container">
-      <img src="img1.jpg" class="carrossel-img" alt="">
-      <img src="img2.jpeg" class="carrossel-img" alt="">
-      <img src="img3.jpeg" class="carrossel-img" alt="">
-      <img src="img4.jpeg" class="carrossel-img" alt="">
-      <img src="img5.jpeg" class="carrossel-img" alt="">
+      <img src="img30.jpeg" class="carrossel-img" alt="">
+      <img src="img31.jpeg" class="carrossel-img" alt="">
+      <img src="img32.jpeg" class="carrossel-img" alt="">
+      <img src="img33.jpeg" class="carrossel-img" alt="">
+      <img src="img34.jpeg" class="carrossel-img" alt="">
+      <video src="video.mp4" class="carrossel-video" autoplay loop muted></video>
     </div>
     <div class="texto">
-      <p>Nosso amor se fortaleceu ainda mais neste ano.</p>
+      <p>Este ano começou com mais dias de luta do que de glória, não é? Mas, por um lado, isso não é ruim. Vejo a gente evoluindo e amadurecendo como um casal ao superarmos juntos esses momentos difíceis.
+        Eu amo o nosso jeito de ser, cada detalhe que vivemos, cada momento "besta", desde assistir a uma série no sofá até cantar "uuuhuuuu uuuu uuu" com seu dó maior no shopping. 
+        Amo o jeito que estamos evoluindo juntos e a ideia que temos de um futuro (RICOS!). Eu amo como a gente incentiva um ao outro, até começamos a academia juntos hihihi, eu amo nosso companherimos.
+        Mesmo com gostos diferentes (você, conhecedora de todas as músicas, e eu, de todos os games) e tempos de execução diferentes, a gente se encontra e se entende. 
+        Sempre que rezo, peço para Deus abençoar nós dois juntinhos, para podermos crescer e conquistar nossos sonhos juntos!
+        Obrigado por você ser a namorada mais perfeita que alguém poderia ter, obrigado por tolerar minhas lerdisses, obrigado por me deixar ser seu anjinho.
+        <span class="eu-te-amo">Eu te AMO</span>
+      </p>    
     </div>
   </section>
 
