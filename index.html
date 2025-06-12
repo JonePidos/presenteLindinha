@@ -177,7 +177,7 @@
     </div>
   </section>
   <script>    
-    
+    // 1) Gera os corações no header
     function initHearts() {
       const container = document.getElementById('heart-container');
       const numHearts = 25;
@@ -207,59 +207,35 @@
         container.style.opacity = '1';
       }
     });
-    // Carrossel automático
+
+    // … restante do seu JS: carrossel, áudio e transições de seção …
     document.querySelectorAll('.carrossel-container').forEach(container => {
       const imgs = container.querySelectorAll('.carrossel-img');
       let idx = 0;
-
-      // Mostra a primeira imagem
       imgs[idx].classList.add('active');
-
       setInterval(() => {
-        // Remove a classe 'active' da imagem atual
         imgs[idx].classList.remove('active');
-
-        // Calcula o próximo índice
         idx = (idx + 1) % imgs.length;
-
-        // Adiciona a classe 'active' à próxima imagem
         imgs[idx].classList.add('active');
       }, 3000);
     });
-
-    // Música de fundo e fallback de play
     window.addEventListener('load', () => {
       const audio = document.getElementById('bg-music');
-      const btn = document.getElementById('play-fallback');
-
-      audio.play().catch(() => {
-        btn.style.display = 'flex';
-      });
-
-      btn.addEventListener('click', () => {
-        audio.play();
-        btn.style.display = 'none';
-      });
+      const btn   = document.getElementById('play-fallback');
+      audio.play().catch(() => btn.style.display = 'flex');
+      btn.addEventListener('click', () => { audio.play(); btn.style.display = 'none'; });
     });
-
-    // Transições de rolagem
     const sections = document.querySelectorAll('.secao');
-
     function handleScroll() {
-      sections.forEach(section => {
-        const top = section.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-
-        if (top < windowHeight * 0.75) {
-          section.classList.add('active');
-        } else {
-          section.classList.remove('active');
-        }
+      sections.forEach(sec => {
+        const top = sec.getBoundingClientRect().top;
+        if (top < window.innerHeight * 0.75) sec.classList.add('active');
+        else sec.classList.remove('active');
       });
     }
-
     window.addEventListener('scroll', handleScroll);
     handleScroll();
+  
   </script>
 </body>
 </html>
