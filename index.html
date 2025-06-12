@@ -217,9 +217,6 @@
       <img src="img34.jpeg" class="carrossel-img" alt="">
       <video src="video1.mp4"
              class="carrossel-video"
-             autoplay
-             loop
-             muted
              playsinline
              webkit-playsinline>
       </video>
@@ -236,7 +233,7 @@
     </div>
   </section>
 <script>
-  // 1) Gera os corações no header
+// 1) Gera os corações no header
   function initHearts() {
     const container = document.getElementById('heart-container');
     const numHearts = 25;
@@ -263,17 +260,13 @@
     playFallback.style.display = 'none';
   });
 
-  // 3) Scroll: ativa seções e esconde corações
+  // 3) Scroll: animação de seções e oculta corações
   const headerElt      = document.querySelector('header');
   const heartContainer = document.getElementById('heart-container');
   const sections       = document.querySelectorAll('.secao');
-
   function handleScroll() {
-    // 3.1 esconde os corações quando o header sair de vista
-    const headerRect = headerElt.getBoundingClientRect();
-    heartContainer.style.opacity = headerRect.bottom < 50 ? '0' : '1';
-
-    // 3.2 ativa animação das seções
+    const hr = headerElt.getBoundingClientRect();
+    heartContainer.style.opacity = hr.bottom < 50 ? '0' : '1';
     sections.forEach(sec => {
       const top = sec.getBoundingClientRect().top;
       sec.classList.toggle('active', top < window.innerHeight * 0.75);
@@ -282,39 +275,39 @@
   window.addEventListener('scroll', handleScroll);
   window.addEventListener('load', handleScroll);
 
-  // 4) Carrossel (imagens + vídeo com controle de áudio e fluxo)
+  // 4) Carrossel: imagens e vídeo como slides
   document.querySelectorAll('.carrossel-container').forEach(container => {
-    const items = Array.from(container.querySelectorAll('.carrossel-img, .carrossel-video'));
+    const items = Array.from(
+      container.querySelectorAll('.carrossel-img, .carrossel-video')
+    );
     let idx = 0;
 
     function showSlide(i) {
-      // 4.1 exibe o slide i e oculta os demais
-      items.forEach((item, j) => item.classList.toggle('active', j === i));
+      items.forEach((it, j) => it.classList.toggle('active', j === i));
       const current = items[i];
 
       if (current.tagName.toLowerCase() === 'video') {
-        // 4.2 slide de vídeo: pausa música, destrava áudio e toca
+        // 4.1 Vídeo: pausa bgMusic, desmute e play
         bgMusic.pause();
         current.muted = false;
         current.currentTime = 0;
-        current.play().catch(() => {/* possivelmente bloqueado até interação */});
+        current.play().catch(() => { /* Autoplay pode exigir interação */ });
 
-        // 4.3 ao terminar, silencia vídeo, retoma a música e avança
-        function onEnded() {
-          current.removeEventListener('ended', onEnded);
+        // 4.2 Quando acabar, retoma bgMusic, silencia vídeo e avança
+        current.onended = () => {
+          current.onended = null;
           current.muted = true;
           bgMusic.play().catch(() => {});
-          const next = (i + 1) % items.length;
-          showSlide(next);
-        }
-        current.addEventListener('ended', onEnded);
+          idx = (i + 1) % items.length;
+          showSlide(idx);
+        };
 
       } else {
-        // 4.4 slide de imagem: mantém 3s e avança
+        // 4.3 Imagem: mantém 3s e avança
         setTimeout(() => {
-          if (items[idx] === current) {
-            const next = (i + 1) % items.length;
-            showSlide(next);
+          if (idx === i) {
+            idx = (i + 1) % items.length;
+            showSlide(idx);
           }
         }, 3000);
       }
@@ -324,7 +317,6 @@
 
     showSlide(0);
   });
-
 </script>
   
 </body>
